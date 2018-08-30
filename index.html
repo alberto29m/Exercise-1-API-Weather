@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Weather</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container" id="app">
+        <div class="title">
+            <div class="main-title">Weather in city</div>
+        </div>
+        <input type="text" placeholder="Introduce a city" class="form-control" id = "inputCity" v-model = "city">
+        <button class= "button" @click=inputValue()>Search</button>
+        <div v-if="#inputCity.value == data.city.name">
+            <div class="container">
+                <div class="row">
+                    <div>
+                        <h1>Nombre de ciudad</h1>
+                    </div>
+                    <div>
+                        <h2>Hora</h2>
+                    </div>
+                    <div>
+                        <h4>Tomorrow forecast</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div>
+                        <img>imagen tiempo actual
+                    </div>
+                    <div>
+                        <h4>Temperatura(min/max)</h4>
+                        <h4>Viento</h4>
+                    </div>
+                    <div>
+                        <img>imagen tiempo mañana
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p>Descripción tiempo actual</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p>Descripción tiempo mañana</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>

@@ -3,48 +3,52 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Weather</title>
+    <link href="style.css" rel="stylesheet">
+    <title>Weather Forecast</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 
 <body>
     <div class="container" id="app">
-        <div class="title">
-            <div class="main-title">Weather in city</div>
+        <div class="jumbotron text-center">
+            <h1>Weather in city</h1>
         </div>
-        <input type="text" placeholder="Introduce a city" class="form-control" id = "inputCity" v-model = "city">
-        <button class= "button" @click=inputValue()>Search</button>
-        <div v-if="#inputCity.value == data.city.name">
+        <form>
+            <input type="text" placeholder="Introduce a city" class="form-control" id="inputCity"  required>
+            <button class="btn btn-primary btn-md" type="submit" v-on:click.prevent = "inputValue">Search</button>
+        </form>
+        <div>
             <div class="container">
                 <div class="row">
-                    <div>
-                        <h1>Nombre de ciudad</h1>
+                    <div class="col-sm-4">
+                        <h1>{{city}}</h1>
                     </div>
-                    <div>
-                        <h2>Hora</h2>
+                    <div class="col-sm-4">
+                        <h4>Temperatura:{{kelvin}}ºC</h4>
                     </div>
-                    <div>
-                        <h4>Tomorrow forecast</h4>
+                    <div class="col-sm-4">
+                        <h2>Tomorrow forecast</h2>
                     </div>
                 </div>
                 <div class="row">
-                    <div>
-                        <img>imagen tiempo actual
+                    <div class="col-sm-4" id="nowWeather">
+                        
                     </div>
-                    <div>
-                        <h4>Temperatura(min/max)</h4>
-                        <h4>Viento</h4>
+                    <div class="col-sm-4">
+                        <h4>Pressure:{{pressure}}hPa </h4>
+                        <h4>Wind Speed:{{wind}}Km/h  </h4>
+                        <h4>Humidity:{{humidity}}%  </h4>
                     </div>
-                    <div>
-                        <img>imagen tiempo mañana
+                    <div class="col-sm-4" id="tomorrowWeather">
+                        
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-6">
-                        <p>Descripción tiempo actual</p>
+                        <p>{{weatherDescriptionNow}}</p>
                     </div>
                     <div class="col-sm-6">
-                        <p>Descripción tiempo mañana</p>
+                        <p>{{weatherDescriptionTomorrow}}</p>
                     </div>
                 </div>
             </div>

@@ -1,3 +1,40 @@
-form{
-    display:flex;
+#mainImg {
+    height: 300px;
+    align-content: center;
+    display: flex;
+    margin-bottom: 50px;
+}
+
+#mainImg img {
+    width: 100%;
+    height: auto;
+}
+
+form {
+    margin-bottom: 100px;
+    display: flex;
+}
+
+#newContainer {
+    border-radius: 37px 37px 37px 37px;
+    -moz-border-radius: 37px 37px 37px 37px;
+    -webkit-border-radius: 37px 37px 37px 37px;
+    border: 7px solid #000000;
+    font-family: cursive;
+    margin-bottom: 100px;
+}
+
+#newContainer p {
+    font-weight: 800;
+    font-style: italic;
+    text-transform: uppercase;
+}
+
+#deleteButton {
+    align-self: flex-end;
+    display: flex;
+}
+#dataCity{
+    
+    display: flex;
 }

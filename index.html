@@ -10,50 +10,57 @@
 
 <body>
     <div class="container" id="app">
-        <div class="jumbotron text-center">
-            <h1>Weather in city</h1>
+        <div id="mainImg">
+            <img src="Images/weather.jpg" class="img-circle">
         </div>
         <form>
-            <input type="text" placeholder="Introduce a city" class="form-control" id="inputCity"  required>
-            <button class="btn btn-primary btn-md" type="submit" v-on:click.prevent = "inputValue">Search</button>
+            <input type="text" placeholder="Introduce a city" class="form-control" id="inputCity" required>
+            <button class="btn btn-primary btn-md" type="submit" v-on:click.prevent="createNewContainer">Search</button>
         </form>
-        <div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-4">
-                        <h1>{{city}}</h1>
-                    </div>
-                    <div class="col-sm-4">
-                        <h4>Temperatura:{{kelvin}}ºC</h4>
-                    </div>
-                    <div class="col-sm-4">
-                        <h2>Tomorrow forecast</h2>
-                    </div>
+        <div class="container" v-for="(newcity,index) in arrayNewContainers" id="newContainer">
+            <button @click="deleteRow(index)" class="btn btn-primary btn-sm" id="deleteButton">X</button>
+            <!--            <div v-for= "value in dataObject">-->
+            <div class="row" id="dataCity">
+                <div class="col-sm-4">
+                    <h1>{{newcity.city}}</h1>
                 </div>
-                <div class="row">
-                    <div class="col-sm-4" id="nowWeather">
-                        
-                    </div>
-                    <div class="col-sm-4">
-                        <h4>Pressure:{{pressure}}hPa </h4>
-                        <h4>Wind Speed:{{wind}}Km/h  </h4>
-                        <h4>Humidity:{{humidity}}%  </h4>
-                    </div>
-                    <div class="col-sm-4" id="tomorrowWeather">
-                        
-                    </div>
+                <div class="col-sm-4">
+                    <h3>Temperatura: {{newcity.temperature}}ºC</h3>
                 </div>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <p>{{weatherDescriptionNow}}</p>
-                    </div>
-                    <div class="col-sm-6">
-                        <p>{{weatherDescriptionTomorrow}}</p>
-                    </div>
+                <div class="col-sm-4">
+                    <h2>Tomorrow forecast</h2>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-sm-4" id="nowWeather">
+                    <img :src="'Images/' + newcity.mainWeatherNow + '.jpg'">
+                </div>
+
+                <div class="col-sm-4">
+                    <h4>Pressure: {{newcity.pressure}}hPa </h4>
+                    <h4>Wind Speed: {{newcity.wind}}Km/h </h4>
+                    <h4>Humidity: {{newcity.humidity}}% </h4>
+                </div>
+
+
+                <div class="col-sm-4" :id="tomorrowWeather">
+                    <img :src="'Images/' + newcity.mainWeatherTomorrow + '.jpg'">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <p>{{newcity.weatherDescriptionNow}}</p>
+                </div>
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4">
+                    <p>{{newcity.weatherDescriptionTomorrow}}</p>
+                </div>
+            </div>
+
         </div>
     </div>
+
+
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="main.js"></script>

@@ -3,22 +3,23 @@ var app = new Vue({
     el: "#app",
     data: {
         city: "",
-        kelvin:0,
-        wind:0,
+        /*kelvin: 0,
+        wind: 0,
         pressure: 0,
         humidity: 0,
-        weatherDescriptionNow:"",
-        weatherDescriptionTomorrow:"",
-        mainWeatherNow:"",
+        weatherDescriptionNow: "",
+        weatherDescriptionTomorrow: "",
+        mainWeatherNow: "",
         mainWeatherTomorrow: "",
-        
-        arrayNewContainers: []
+*/
+        arrayNewContainers: [],
+//        dataObject: {}
     },
     methods: {
-        inputValue: function () {
-            var input = document.getElementById("inputCity");
-            this.city = input.value;
-            this.getData()
+        createNewContainer: function () {
+            this.inputValue();
+            this.getData();
+//            this.arrayNewContainers.push(this.dataObject);
         },
         getData: function () {
             fetch("https://api.openweathermap.org/data/2.5/forecast?q=" + this.city + "&APPID=914f7ee92898923518e503628161935b", {
@@ -36,18 +37,20 @@ var app = new Vue({
             }).then(function (json) {
                 console.log(app.city)
                 console.log(json);
-                app.kelvin = json.list[0].main.temp;
-                app.convertKelvinToCelsius();
-                app.pressure = json.list[0].main.pressure;
-                app.wind = json.list[0].wind.speed;
-                app.humidity = json.list[0].main.humidity;
-                app.weatherDescriptionNow = json.list[0].weather[0].description;
-                app.weatherDescriptionTomorrow = json.list[7].weather[0].description;
-                app.mainWeatherNow = json.list[0].weather[0].main;
-                
-                app.mainWeatherTomorrow = json.list[7].weather[0].main;
-                app.imageDependOfWeather(app.mainWeatherNow, "nowWeather");
-                app.imageDependOfWeather(app.mainWeatherTomorrow, "tomorrowWeather");
+                var dataObject = {};
+                dataObject.city = json.city.name;
+                dataObject.temperature = json.list[0].main.temp;
+                app.arrayNewContainers.push(dataObject);
+
+//                app.convertKelvinToCelsius();
+                dataObject.pressure = json.list[0].main.pressure;
+                dataObject.wind = json.list[0].wind.speed;
+                dataObject.humidity = json.list[0].main.humidity;
+                dataObject.weatherDescriptionNow = json.list[0].weather[0].description;
+                dataObject.weatherDescriptionTomorrow = json.list[7].weather[0].description;
+                dataObject.mainWeatherNow = json.list[0].weather[0].main;
+                dataObject.mainWeatherTomorrow = json.list[7].weather[0].main;
+
                 // equals to .success in JQuery Ajax call;
                 //                city = json.name;
 
@@ -56,50 +59,21 @@ var app = new Vue({
                 console.log("Request failed: " + error.message);
             });
         },
-        convertKelvinToCelsius: function() {
-            console.log(this)
-            if (this.kelvin < 0) {
-                this.kelvin = 'below absolute zero (0 K)';
+        convertKelvinToCelsius: function () {
+            if (this.dataObject.temperatura < 0) {
+                this.dataObject.temperatura = 'below absolute zero (0 K)';
             } else {
-                this.kelvin = this.kelvin - 273.15;
+                this.dataObject.temperatura = this.dataObject.temperatura - 273.15;
             }
-            this.kelvin= this.kelvin.toFixed(1);
+            this.dataObject.temperatura = this.dataObject.temperatura.toFixed(1);
         },
-        imageDependOfWeather: function(string, id){
-            var divImg = document.getElementById(id);
-            console.log(divImg)
-            console.log(string)
-            if(string === "Clouds"){
-                var cloudsImg = document.createElement("img");
-                cloudsImg.setAttribute("src", "Images/cloud.jpg" );
-                divImg.appendChild(cloudsImg);
-            }else if(string === "Rain"){
-                var cloudsImg = document.createElement("img");
-                cloudsImg.setAttribute("src", "Images/rain.jpg" );
-                divImg.appendChild(cloudsImg);
-            }else if(string === "Clear"){
-                var cloudsImg = document.createElement("img");
-                cloudsImg.setAttribute("src", "Images/clear.jpg" );
-                divImg.appendChild(cloudsImg);
-            }
+        deleteRow: function (index) {
+            this.arrayNewContainers.splice(index, 1)
+        },
+        inputValue: function () {
+            var input = document.getElementById("inputCity");
+            this.city = input.value;
         }
-
-        //        pushTheContainer: function(){
-        //            app.arrayNewContainers.push("app.city")
-        //        }
-        //        inputValue: function () {
-        //            var input = document.getElementById("inputCity");
-        //            for(var i = 0; i < this.dataCityName.length; i++ ){
-        //                if(this.dataCityName[i] === input.value){
-        //                    return true;
-        //                }else{
-        //                    return false;
-        //                }
-        //            }
-        //        },
-        //        imageDependOfWeather: function(){
-
-        //        }
 
     }
 })
